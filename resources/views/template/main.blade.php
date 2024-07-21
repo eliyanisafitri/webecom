@@ -40,12 +40,12 @@
 
 <body>
 
-	<!--PreLoader-->
+	{{-- <!--PreLoader-->
 	<div class="loader">
 		<div class="loader-inner">
 			<div class="circle"></div>
 		</div>
-	</div>
+	</div> --}}
 	<!--PreLoader Ends-->
 
 	<!-- header -->
@@ -78,16 +78,16 @@
 											<i class="fas fa-search"></i>
 										</a>
 										@if (Auth::check())
-											<a class="logout-icon" href="{{ url('logout') }}"
+											<a class="logout-icon" href="{{ route('logout') }}"
 												onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
 												<i class="fas fa-sign-out-alt"></i>
 											</a>
-											<form id="logout-form" action="{{ url('logout') }}" method="POST"
+											<form id="logout-form" action="{{ route('logout') }}" method="POST"
 												style="display: none;">
 												@csrf
 											</form>
 										@else
-											<a class="login-icon" href="{{ url('login') }}">
+											<a class="login-icon" href="{{ url('/auth/customers') }}">
 												<i class="fas fa-user"></i>
 											</a>
 										@endif

@@ -13,13 +13,22 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
+
+      
+
         $idstok = $request->idstok;
         $qty = $request->qty;
+
+    
+        $id_users = auth()->user()->id;
+
 
         // Cek apakah produk sudah ada di keranjang
         $cartItem = \DB::table('tbcart')
             ->where('idstok', $idstok)
+            ->where('id_user',$id_users)
             ->first();
+
 
         if ($cartItem) {
             // Produk sudah ada di keranjang, tambahkan quantity
@@ -31,6 +40,8 @@ class CartController extends Controller
             \DB::table('tbcart')->insert([
                 'idstok' => $idstok,
                 'qty' => $qty,
+                'id_user' => auth()->user()->id
+                
             ]);
         }
 

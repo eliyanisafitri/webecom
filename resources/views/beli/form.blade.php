@@ -6,11 +6,10 @@
 				<h1 class="mb-4 text-center">Form Input Data Pembelian</h1>
 				<form method="POST" action="{{ url('beli') }}">
 					@csrf
-
 					<div class="row mb-3">
-						<label for="nobukti" class="col-sm-12 col-form-label">No Bukti</label>
+						<label for="tgl" class="col-sm-12 col-form-label">Tanggal</label>
 						<div class="col-sm-12">
-							<input type="number" class="form-control" name="nobukti" required>
+							<input type="date" class="form-control" name="tgl" required>
 						</div>
 					</div>
 
@@ -30,16 +29,17 @@
 					</div>
 
 					<div class="row mb-3">
-						<label for="tgl" class="col-sm-12 col-form-label">Tanggal</label>
+						<label for="idstok" class="col-sm-12 col-form-label">Nama
+							Barang</label>
 						<div class="col-sm-12">
-							<input type="date" class="form-control" name="tgl" required>
-						</div>
-					</div>
-
-					<div class="row mb-3">
-						<label for="nama" class="col-sm-12 col-form-label">Nama Barang</label>
-						<div class="col-sm-12">
-							<input type="text" class="form-control" name="nama" required>
+							<select class="form-control" name="idstok" required>
+								<?php
+								$barang = DB::table('tbstok')->get();
+								?>
+								@foreach ($barang as $row)
+									<option value="{{ $row->id }}">{{ $row->nama }}</option>
+								@endforeach
+							</select>
 						</div>
 					</div>
 

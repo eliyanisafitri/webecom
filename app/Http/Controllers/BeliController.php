@@ -24,12 +24,14 @@ class BeliController extends Controller
         return view('beli.form');
     }
     public function store(Request $r)
+    
     {
+        $nobukti = 'BL-' . date('YmdHis');
         $x = array(
-            'nobukti' => $r->nobukti,
+            'nobukti' => $nobukti,
             'idpemasok' => $r->idpemasok, 
             'tgl' => $r->tgl, 
-            'nama' => $r->nama, 
+            'idstok' => $r->idstok, 
             'harga' => $r->harga, 
             'qty' => $r->qty, 
             'total' => $r->total, 

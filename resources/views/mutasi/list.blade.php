@@ -13,7 +13,6 @@
 				<tr style="text-align: center; font-weight: bold;">
 					<th>No</th>
 					<th>No Bukti</th>
-					<th>Masuk Keluar</th>
 					<th>Nama Barang</th>
 					<th>Quantity</th>
 					<th>Harga</th>
@@ -31,7 +30,6 @@
 					<tr>
 						<td class="text-center">{{ $no++ }}</td>
 						<td class="text-center">{{ $value->nobukti }}</td>
-						<td class="text-center">{{ $value->mk }}</td>
 						<td class="text-center">{{ $value->idstok }}</td>
 						<td class="text-center">{{ $value->qty }}</td>
 						<td class="text-center">{{ $value->harga }}</td>
@@ -70,12 +68,6 @@
 											<label for="nobukti" class="form-label">Nomor Bukti</label>
 											<input type="number" class="form-control" name="nobukti"
 												value="{{ $value->nobukti }}" required>
-										</div>
-
-										<div class="mb-3">
-											<label for="mk" class="form-label">Masuk Keluar</label>
-											<input type="number" class="form-control" name="mk"
-												value="{{ $value->mk }}" required>
 										</div>
 
 										<div class="mb-3">

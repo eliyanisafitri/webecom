@@ -13,8 +13,8 @@
 				<tr style="text-align: center; font-weight: bold;">
 					<th>No</th>
 					<th>No Bukti</th>
-					<th>Pemasok</th>
 					<th>Tanggal</th>
+					<th>Pemasok</th>
 					<th>Nama</th>
 					<th>Harga</th>
 					<th>QTY</th>
@@ -25,16 +25,16 @@
 			<tbody>
 				<?php
 				$no = 1;
-				$rec = DB::table('beli')->join('tbpemasok', 'beli.idpemasok', '=', 'tbpemasok.id')->select('beli.*', 'tbpemasok.nama AS idpemasok')->get();
+				$rec = DB::table('beli')->join('tbpemasok', 'beli.idpemasok', '=', 'tbpemasok.id')->join('tbstok', 'beli.idstok', '=', 'tbstok.id')->select('beli.*', 'tbpemasok.nama AS idpemasok', 'tbstok.nama AS idstok')->get();
 				
 				?>
 				@foreach ($rec as $value)
 					<tr>
 						<td class="text-center">{{ $no++ }}</td>
 						<td class="text-center">{{ $value->nobukti }}</td>
-						<td class="text-center">{{ $value->idpemasok }}</td>
 						<td class="text-center">{{ $value->tgl }}</td>
-						<td class="text-center">{{ $value->nama }}</td>
+						<td class="text-center">{{ $value->idpemasok }}</td>
+						<td class="text-center">{{ $value->idstok }}</td>
 						<td class="text-center">{{ $value->harga }}</td>
 						<td class="text-center">{{ $value->qty }}</td>
 						<td class="text-center">{{ $value->total }}</td>
@@ -75,6 +75,12 @@
 										</div>
 
 										<div class="mb-3">
+											<label for="tgl" class="form-label">Tanggal</label>
+											<input type="date" class="form-control" name="tgl"
+												value="{{ $value->tgl }}" required>
+										</div>
+
+										<div class="mb-3">
 											<label for="idpemasok" class="form-label">Nama Pemasok</label>
 											<!-- Tambah bagian ini untuk dropdown nama pemasok -->
 											<select class="form-control" name="idpemasok" required>
@@ -91,15 +97,19 @@
 										</div>
 
 										<div class="mb-3">
-											<label for="tgl" class="form-label">Tanggal</label>
-											<input type="date" class="form-control" name="tgl"
-												value="{{ $value->tgl }}" required>
-										</div>
-
-										<div class="mb-3">
-											<label for="nama" class="form-label">Nama</label>
-											<input type="text" class="form-control" name="nama"
-												value="{{ $value->nama }}" required>
+											<label for="idstok" class="form-label">Nama Barang</label>
+											<!-- Tambah bagian ini untuk dropdown nama  barang -->
+											<select class="form-control" name="idstok" required>
+												<?php
+												$barang = DB::table('tbstok')->get();
+												?>
+												@foreach ($barang as $row)
+													<option value="{{ $row->id }}"
+														{{ $row->id === $value->idstok ? 'selected' : '' }}>
+														{{ $row->nama }}
+													</option>
+												@endforeach
+											</select>
 										</div>
 
 										<div class="mb-3">

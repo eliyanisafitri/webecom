@@ -70,30 +70,6 @@ class StokController extends Controller
 
     public function update(Request $r, $id)
     {
-        // $this->validation('update');
-    //      $stok =DB::table('tbstok')
-    //         ->where('id',$id)
-    //         ->first();
-    //     if(Request() ->foto !=''){
-    //         $foto = Request()->foto;
-    //         $new_foto = Str::random(16).'.'.$foto->extension();
-    //         $foto->move('uploads/stok/', $new_foto);
-    //         unlink('uploads/stok/'.$stok->foto);
-    //     }
-    //     $x = array(
-    //     'kode' => $r->kode,
-    //     'nama' => $r->nama,
-    //     'idkategori' => $r->idkategori,
-    //     'hargajual' => $r->hargajual,
-    //     'foto' => $new_foto,  
-    //     'desc' => $r->desc,
-    // );
-
-    // \DB::table('tbstok')
-    //     ->where('id', $id)
-    //     ->update($x);
-
-    // return view('stok.list');
 
     // Mengambil data stok lama
     $stok = DB::table('tbstok')->where('id', $id)->first();

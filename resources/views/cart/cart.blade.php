@@ -42,12 +42,12 @@
 
 <body>
 
-	<!--PreLoader-->
+	{{-- <!--PreLoader-->
 	<div class="loader">
 		<div class="loader-inner">
 			<div class="circle"></div>
 		</div>
-	</div>
+	</div> --}}
 	<!--PreLoader Ends-->
 
 	<!-- header -->
@@ -106,9 +106,9 @@
 												class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i
 												class="fas fa-search"></i></a>
-										<a class="login-icon" href="{{ url('login') }}">
+										{{-- <a class="login-icon" href="{{ url('login') }}">
 											<i class="fas fa-user"></i>
-										</a>
+										</a> --}}
 									</div>
 								</li>
 							</ul>
@@ -176,16 +176,21 @@
 								</tr>
 							</thead>
 							@php
+
 								$rec = DB::table('tbcart')
 								    ->join('tbstok', 'tbcart.idstok', '=', 'tbstok.id')
+								    ->join('users', 'tbcart.id_user', '=', 'users.id')
+								    ->where('id_user', auth()->user()->id)
 								    ->select(
 								        'tbcart.*',
 								        'tbstok.nama AS nama_barang',
 								        'tbstok.hargajual',
 								        'tbstok.foto',
+								        'users.name AS nama_users',
 								    )
 								    ->get();
 								$totalSubtotal = 0;
+
 							@endphp
 							<tbody>
 								@foreach ($rec as $item)
@@ -215,6 +220,8 @@
 													width="65" />
 											@endif
 										</td>
+										{{-- <td class="users-name" style="text-align: justify">
+											{{ $item->nama_users }}</td> --}}
 										<td class="product-name" style="text-align: justify">
 											{{ $item->nama_barang }}</td>
 										<td class="product-price">
@@ -255,6 +262,7 @@
 						</table>
 						<div class="cart-buttons">
 							<a href="{{ url('chekout') }}" class="boxed-btn black">Check Out</a>
+							<a href="{{ url('shop') }}" class="boxed-btn black">Belanja Lagi</a>
 						</div>
 					</div>
 				</div>

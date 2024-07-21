@@ -254,10 +254,12 @@
 										<p>Pemasok</p>
 									</a>
 								</li>
-								<a href="{{ url('satuan') }}" class="nav-link">
-									<i class="far fa-circle nav-icon"></i>
-									<p>Satuan</p>
-								</a>
+								<li>
+									<a href="{{ url('satuan') }}" class="nav-link">
+										<i class="far fa-circle nav-icon"></i>
+										<p>Satuan</p>
+									</a>
+								</li>
 						</li>
 						<li class="nav-item">
 							<a href="{{ url('kategori') }}" class="nav-link">
@@ -278,11 +280,12 @@
 							</a>
 						</li>
 						<li class="nav-item">
-							<a href="{{ url('jual') }}" class="nav-link">
+							<a href="{{ url('penjualan') }}" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>
 								<p>Daftar Penjualan</p>
 							</a>
 						</li>
+
 						<li class="nav-item">
 							<a href="{{ url('pelanggan') }}" class="nav-link">
 								<i class="far fa-circle nav-icon"></i>

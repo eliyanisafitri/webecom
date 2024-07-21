@@ -41,11 +41,11 @@
 <body>
 
 	<!--PreLoader-->
-	<div class="loader">
+	{{-- <div class="loader">
 		<div class="loader-inner">
 			<div class="circle"></div>
 		</div>
-	</div>
+	</div> --}}
 	<!--PreLoader Ends-->
 
 	<!-- header -->
@@ -105,9 +105,9 @@
 												class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i
 												class="fas fa-search"></i></a>
-										<a class="login-icon" href="{{ url('login') }}">
+										{{-- <a class="login-icon" href="{{ url('login') }}">
 											<i class="fas fa-user"></i>
-										</a>
+										</a> --}}
 									</div>
 								</li>
 							</ul>

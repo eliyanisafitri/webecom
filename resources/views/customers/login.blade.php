@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Admin</title>
+	<title>Customer</title>
 </head>
 
 <body
@@ -13,9 +13,9 @@
 	<div
 		style="width: 400px; background-color: #ffffff; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 20px; border-radius: 8px; text-align: left;">
 
-		<h2 style="margin-bottom: 20px; text-align: center;">Admin</h2>
+		<h2 style="margin-bottom: 20px; text-align: center;">Customer</h2>
 
-		<form action="{{ url('auth/admin') }}" method="POST">
+		<form action="{{ url('auth/customers') }}" method="POST">
 			@csrf
 
 			<div style="display: flex; flex-direction: column; margin-bottom: 20px;">
@@ -39,7 +39,7 @@
 		</form>
 
 		<div style="text-align: center;">
-			Belum punya akun? <a href="/auth/admin/register"
+			Belum punya akun? <a href="/auth/customers/register"
 				style="color: #007bff; text-decoration: none; font-weight: bold;">Daftar</a>
 		</div>
 

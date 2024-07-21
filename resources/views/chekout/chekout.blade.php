@@ -43,11 +43,11 @@
 <body>
 
 	<!--PreLoader-->
-	<div class="loader">
+	{{-- <div class="loader">
 		<div class="loader-inner">
 			<div class="circle"></div>
 		</div>
-	</div>
+	</div> --}}
 	<!--PreLoader Ends-->
 
 	<!-- header -->
@@ -106,9 +106,9 @@
 												class="fas fa-shopping-cart"></i></a>
 										<a class="mobile-hide search-bar-icon" href="#"><i
 												class="fas fa-search"></i></a>
-										<a class="login-icon" href="{{ url('login') }}">
+										{{-- <a class="login-icon" href="{{ url('login') }}">
 											<i class="fas fa-user"></i>
-										</a>
+										</a> --}}
 									</div>
 								</li>
 							</ul>
@@ -159,7 +159,7 @@
 	<!-- end breadcrumb section -->
 
 	<!-- check out section -->
-	<div class="checkout-section mt-150 mb-150">
+	{{-- <div class="checkout-section mt-150 mb-150">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-8">
@@ -175,20 +175,19 @@
 										</button>
 									</h5>
 								</div>
-
-								<div id="collapseOne" class="show collapse"
-									aria-labelledby="headingOne" data-parent="#accordionExample">
+								<div id="collapseOne" class="show collapse" aria-labelledby="headingOne"
+									data-parent="#accordionExample">
 									<div class="card-body">
 										<div class="billing-address-form">
-											<form action="index.html">
-												<p><input type="text" placeholder="Name"></p>
-												<p><input type="email" placeholder="Email"></p>
-												<p><input type="text" placeholder="Address"></p>
-												<p><input type="tel" placeholder="Phone"></p>
-												<p>
-													<textarea name="bill" id="bill" cols="30" rows="10"
-													 placeholder="Say Something"></textarea>
-												</p>
+											<form action="{{ route('chekout.store') }}" method="POST"
+												enctype="multipart/form-data">
+												<p><input type="text" name="nama"
+														value={{ auth()->user()->name }}  /></p>
+												<p><input type="email" placeholder="Email"
+														value={{ auth()->user()->email }}></p>
+												<p><input type="text" placeholder="alamat"></p>
+												<p><input type="text" placeholder="nohp"></p>
+
 											</form>
 										</div>
 									</div>
@@ -205,58 +204,196 @@
 								</div>
 							</div>
 						</div>
-
 					</div>
 				</div>
-
 				<div class="col-lg-4">
 					<div class="order-details-wrap">
+						<h4 class="order-details-title">Your Order Details</h4>
 						<table class="order-details">
 							<thead>
 								<tr>
-									<th>Your order Details</th>
-									<th>Price</th>
+									<th>Nama Produk</th>
+									<th>Harga</th>
+									<th>Quantity</th>
+									<th>Total</th>
 								</tr>
 							</thead>
+							@php
+								$rec = DB::table('tbcart')
+								    ->join('tbstok', 'tbcart.idstok', '=', 'tbstok.id')
+								    ->join('users', 'tbcart.id_user', '=', 'users.id')
+								    ->where('id_user', auth()->user()->id)
+								    ->select(
+								        'tbcart.*',
+								        'tbstok.nama AS nama_barang',
+								        'tbstok.hargajual',
+								        'tbstok.foto',
+								        'users.name AS nama_users',
+								    )
+								    ->get();
+								$totalSubtotal = 0;
+							@endphp
 							<tbody class="order-details-body">
-								<tr>
-									<td>Product</td>
-									<td>Total</td>
-								</tr>
-								<tr>
-									<td>Strawberry</td>
-									<td>$85.00</td>
-								</tr>
-								<tr>
-									<td>Berry</td>
-									<td>$70.00</td>
-								</tr>
-								<tr>
-									<td>Lemon</td>
-									<td>$35.00</td>
-								</tr>
-							</tbody>
-							<tbody class="checkout-details">
-								<tr>
-									<td>Subtotal</td>
-									<td>$190</td>
-								</tr>
-								<tr>
-									<td>Shipping</td>
-									<td>$50</td>
-								</tr>
-								<tr>
-									<td>Total</td>
-									<td>$240</td>
-								</tr>
+								@foreach ($rec as $item)
+									@php
+										$subtotal = $item->hargajual * $item->qty;
+										$totalSubtotal += $subtotal;
+										$fotos = json_decode($item->foto, true);
+									@endphp
+									<tr class="table-body-row">
+										<td class="product-name" style="text-align: justify">
+											{{ $item->nama_barang }}</td>
+										<td class="product-price">
+											RP.{{ number_format($item->hargajual, 0, ',', '.') }}</td>
+										<td class="product-quantity" style="text-align: center">
+											{{ $item->qty }}</td>
+										<td class="product-total">RP.
+											{{ number_format($subtotal, 0, ',', '.') }}</td>
+									</tr>
+								@endforeach
 							</tbody>
 						</table>
-						<a href="#" class="boxed-btn">Place Order</a>
+						<div class="total-harga-wrap"
+							style="margin-top: 20px; padding: 15px; border-top: 1px solid #ddd; text-align: right; background-color: #f9f9f9; border-radius: 5px;">
+							<h4 style="font-weight: bold; margin-bottom: 0;">Total Harga:</h4>
+							<h3 style="margin-top: 5px; color: #e74c3c;">
+								RP.{{ number_format($totalSubtotal, 0, ',', '.') }}</h3>
+						</div>
+						<p><input type="file" name="fotobayar" accept="image/*"></p>
+						<a href="#" class="boxed-btn"
+							style="display: block; text-align: center; margin-top: 20px; padding: 10px 20px; background-color: #3498db; color: #fff; text-decoration: none; border-radius: 5px;">Place
+							Order</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div> --}}
+
+	<div class="checkout-section mt-150 mb-150">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="checkout-accordion-wrap">
+						<div class="accordion" id="accordionExample">
+							<div class="card single-accordion">
+								<div class="card-header" id="headingOne">
+									<h5 class="mb-0">
+										<button class="btn btn-link" type="button" data-toggle="collapse"
+											data-target="#collapseOne" aria-expanded="true"
+											aria-controls="collapseOne">
+											Billing Address
+										</button>
+									</h5>
+								</div>
+								<div id="collapseOne" class="show collapse" aria-labelledby="headingOne"
+									data-parent="#accordionExample">
+									<div class="card-body">
+										<div class="billing-address-form">
+											<form action="{{ route('chekout.store') }}" method="POST"
+												enctype="multipart/form-data">
+												@csrf
+												<p><input type="text" name="nama"
+														value="{{ auth()->user()->name }}" required /></p>
+												<p><input type="email" name="email" placeholder="Email"
+														value="{{ auth()->user()->email }}" required></p>
+												<p><input type="text" name="alamat" placeholder="Alamat"
+														required></p>
+												<p><input type="text" name="nohp" placeholder="Nomor HP"
+														required></p>
+												<div class="form-group">
+													<label for="fotobayar" class="form-label">Unggah Bukti
+														Pembayaran</label>
+													<p><input type="file" name="fotobayar" accept="image/*"
+															required></p>
+												</div>
+												<div style="display: flex; justify-content: space-between;">
+													<button type="submit" class="boxed-btn"
+														style="padding: 10px 20px; background-color: #3498db; color: #fff; text-decoration: none; border-radius: 5px;">Place
+														Order</button>
+													<a href="{{ url('/cart') }}" class="boxed-btn"
+														style="padding: 10px 20px; background-color: #f39c12; color: #fff; text-decoration: none; border-radius: 5px;">Edit
+														Keranjang</a>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="card single-accordion">
+								<div id="collapseThree" class="collapse"
+									aria-labelledby="headingThree" data-parent="#accordionExample">
+									<div class="card-body">
+										<div class="card-details">
+											<p>Your card details go here.</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4">
+					<div class="order-details-wrap">
+						<h4 class="order-details-title">Your Order Details</h4>
+						<table class="order-details">
+							<thead>
+								<tr>
+									<th>Nama Produk</th>
+									<th>Harga</th>
+									<th>Quantity</th>
+									<th>Total</th>
+								</tr>
+							</thead>
+							@php
+								$rec = DB::table('tbcart')
+								    ->join('tbstok', 'tbcart.idstok', '=', 'tbstok.id')
+								    ->join('users', 'tbcart.id_user', '=', 'users.id')
+								    ->where('id_user', auth()->user()->id)
+								    ->select(
+								        'tbcart.*',
+								        'tbstok.nama AS nama_barang',
+								        'tbstok.hargajual',
+								        'tbstok.foto',
+								        'users.name AS nama_users',
+								    )
+								    ->get();
+								$totalSubtotal = 0;
+							@endphp
+							<tbody class="order-details-body">
+								@foreach ($rec as $item)
+									@php
+										$subtotal = $item->hargajual * $item->qty;
+										$totalSubtotal += $subtotal;
+										$fotos = json_decode($item->foto, true);
+									@endphp
+									<tr class="table-body-row">
+										<td class="product-name" style="text-align: justify">
+											{{ $item->nama_barang }}</td>
+										<td class="product-price">
+											RP.{{ number_format($item->hargajual, 0, ',', '.') }}</td>
+										<td class="product-quantity" style="text-align: center">
+											{{ $item->qty }}</td>
+										<td class="product-total">RP.
+											{{ number_format($subtotal, 0, ',', '.') }}</td>
+									</tr>
+								@endforeach
+							</tbody>
+						</table>
+						<div class="total-harga-wrap"
+							style="margin-top: 20px; padding: 15px; border-top: 1px solid #ddd; text-align: right; background-color: #f9f9f9; border-radius: 5px;">
+							<h4 style="font-weight: bold; margin-bottom: 0;">Total Harga:</h4>
+							<h3 style="margin-top: 5px; color: #e74c3c;">
+								RP.{{ number_format($totalSubtotal, 0, ',', '.') }}</h3>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+
+
+	{{-- </div>
+	</div> --}}
 	<!-- end check out section -->
 
 	<!-- logo carousel -->

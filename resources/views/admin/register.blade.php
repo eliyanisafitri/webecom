@@ -15,7 +15,8 @@
 
 		<h2 style="margin-bottom: 20px; text-align: center;">Admin baru?</h2>
 
-		<form method="POST" action="/register/store" style="margin-bottom: 20px;">
+		<form action="{{ url('auth/admin/register') }}" method="POST"
+			style="margin-bottom: 20px;">
 			@csrf
 
 			<div style="display: flex; flex-direction: column; margin-bottom: 20px;">
