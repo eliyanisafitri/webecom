@@ -17,6 +17,9 @@ class ChekoutController extends Controller
     }
     public function store(Request $r)
     {
+        // dd(1);
+
+        
         // Upload file
         $filePath = $r->file('fotobayar')->store('fotobayar', 'public');
 
@@ -43,7 +46,7 @@ class ChekoutController extends Controller
             'fotobayar' => $filePath,
             'nohp' => $r->nohp,
             'alamat' => $r->alamat,
-            'status' => 'verifikasi',
+            'status' => 'pending',
             'waktu' => now(),
         ];
 
@@ -51,7 +54,8 @@ class ChekoutController extends Controller
         DB::table('tbchekout')->insert($data);
 
         // Redirect kembali ke halaman checkout dengan pesan sukses
-        return redirect()->back();
+        return redirect('cart');
     }
+
 
 }

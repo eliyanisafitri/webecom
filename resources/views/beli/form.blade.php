@@ -46,14 +46,16 @@
 					<div class="row mb-3">
 						<label for="harga" class="col-sm-12 col-form-label">Harga</label>
 						<div class="col-sm-12">
-							<input type="number" class="form-control" name="harga" required>
+							<input type="number" class="form-control" id="harga" name="harga"
+								required>
 						</div>
 					</div>
 
 					<div class="row mb-3">
 						<label for="qty" class="col-sm-12 col-form-label">QTY</label>
 						<div class="col-sm-12">
-							<input type="number" class="form-control" name="qty" required>
+							<input type="number" class="form-control" id="qty" name="qty"
+								required>
 						</div>
 					</div>
 

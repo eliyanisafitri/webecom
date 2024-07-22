@@ -113,8 +113,8 @@
 										</div>
 
 										<div class="mb-3">
-											<label for="harga" class="form-label">harga</label>
-											<input type="number" class="form-control" name="harga"
+											<label for="harga" class="form-label">Harga</label>
+											<input type="text" class="form-control" name="harga"
 												value="{{ $value->harga }}" required>
 										</div>
 

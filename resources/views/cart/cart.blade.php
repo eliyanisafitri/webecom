@@ -175,8 +175,8 @@
 									<th class="product-total">Total</th>
 								</tr>
 							</thead>
-							@php
 
+							@php
 								$rec = DB::table('tbcart')
 								    ->join('tbstok', 'tbcart.idstok', '=', 'tbstok.id')
 								    ->join('users', 'tbcart.id_user', '=', 'users.id')
@@ -244,6 +244,16 @@
 						</table>
 					</div>
 				</div>
+
+				@php
+					$ischekout = DB::table('tbchekout')
+					    ->where('id_user', Auth()->user()->id)
+					    ->where('status', 'pending')
+					    ->first();
+					// dd($ischeckout);
+				@endphp
+
+
 				<div class="col-lg-4">
 					<div class="total-section">
 						<table class="total-table">
@@ -251,17 +261,27 @@
 								<tr class="table-total-row">
 									<th>Total</th>
 									<th>Price</th>
+									@if ($ischekout)
+										<th>Status</th>
+									@endif
 								</tr>
 							</thead>
 							<tbody>
 								<tr class="total-data">
 									<td><strong>Total: </strong></td>
 									<td>RP. {{ number_format($totalSubtotal, 0, ',', '.') }}</td>
+									@if ($ischekout)
+										<td>{{ $ischekout->status }}</td>
+									@endif
 								</tr>
+
 							</tbody>
 						</table>
 						<div class="cart-buttons">
-							<a href="{{ url('chekout') }}" class="boxed-btn black">Check Out</a>
+							@if ($ischekout)
+							@else
+								<a href="{{ url('chekout') }}" class="boxed-btn black">Check Out</a>
+							@endif
 							<a href="{{ url('shop') }}" class="boxed-btn black">Belanja Lagi</a>
 						</div>
 					</div>

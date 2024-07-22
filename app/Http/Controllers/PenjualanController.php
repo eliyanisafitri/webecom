@@ -20,12 +20,19 @@ class PenjualanController extends Controller
 
     public function update(Request $request, $id)
     {
-      $x = array (
-         'status' => $request->status,
-      );
-      DB::table('tbchekout')->where('id', $id)->update($x);
-        return view('penjualan.list');
-        
+        //input type hiden
+        $id_user = $request->id_user;
+
+        $id_chekout = $id;
+
+        DB::table('tbcart')->where('id_user', $id_user)->delete();
+
+        $data =[
+            'status' => 'Selesai'
+        ];
+
+        DB::table('tbchekout')->where('id', $id_chekout)->update($data);
+        return back();
     }
 
 }

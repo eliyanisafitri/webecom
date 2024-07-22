@@ -13,13 +13,11 @@ class CartController extends Controller
 
     public function store(Request $request)
     {
-
-      
+        //  dd(1);
 
         $idstok = $request->idstok;
         $qty = $request->qty;
 
-    
         $id_users = auth()->user()->id;
 
 
@@ -50,6 +48,7 @@ class CartController extends Controller
 
     public function update(Request $request, $id)
     {
+       
         \DB::table('tbcart')
             ->where('id', $id)
             ->update(['qty' => $request->qty]);

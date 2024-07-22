@@ -19,26 +19,51 @@
 			</thead>
 			<tbody>
 				<?php
+				
 				$no = 1;
 				$rec = DB::table('tbchekout')->join('users', 'tbchekout.id_user', '=', 'users.id')->join('tbstok', 'tbchekout.idstok', '=', 'tbstok.id')->select('tbchekout.*', 'users.name AS nama_users', 'tbstok.nama AS nama_stok')->get();
-				
 				?>
 				@foreach ($rec as $value)
 					<tr>
 						<td class="text-center">{{ $no++ }}</td>
 						<td class="text-center">{{ $value->nobukti }}</td>
 						<td class="text-center">{{ $value->nama_users }}</td>
-						<td class="text-center">{{ $value->nama_stok }}</td>
+
+						@php
+							$id_users = $value->id_user;
+							$product = DB::table('tbcart')
+
+							    ->join('tbstok', 'tbcart.idstok', '=', 'tbstok.id')
+							    ->select('tbstok.nama', 'tbcart.qty')
+							    ->where('id_user', $id_users)
+							    ->get();
+
+						@endphp
+
+
+
+						<td class="text-center">
+							@foreach ($product as $item)
+								<li>{{ $item->nama }} ({{ $item->qty }})</li>
+							@endforeach
+
+
+						</td>
+
+
 						<td class="text-center">{{ $value->total }}</td>
 						<td class="text-center">{{ $value->nohp }}</td>
 						<td class="text-center">{{ $value->alamat }}</td>
-						<td class="text-center">{{ $value->fotobayar }}</td>
+						<td class="text-center"><img
+								src="{{ asset('storage/' . $value->fotobayar) }}" height="75"
+								width="65" class="mr-2"></td>
 						<td class="text-center">{{ $value->status }}</td>
 						<td>
 							<form action="{{ url('penjualan/' . $value->id) }}" method="POST">
 								@csrf
+								<input type="hidden" name="id_user" value="{{ $value->id_user }}">
 								@method('PUT')
-								<input type="hidden" name="status" value="proses">
+
 								<button class="btn btn-success" type="submit">Konfirmasi</button>
 							</form>
 						</td>
