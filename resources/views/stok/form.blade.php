@@ -50,12 +50,12 @@
 						</div>
 					</div>
 
-					<div class="row mb-3">
+					{{-- <div class="row mb-3">
 						<label for="saldoawal" class="col-sm-12 col-form-label"> Saldo Awal</label>
 						<div class="col-sm-12">
 							<input type="number" class="form-control" name="saldoawal" required>
 						</div>
-					</div>
+					</div> --}}
 
 					<div class="row mb-3">
 						<label for="saldoakhir" class="col-sm-12 col-form-label"> Saldo

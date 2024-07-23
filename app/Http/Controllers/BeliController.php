@@ -27,21 +27,39 @@ class BeliController extends Controller
     
     {
         $nobukti = 'BL-' . date('YmdHis');
-        $x = array(
-            'nobukti' => $nobukti,
-            'idpemasok' => $r->idpemasok, 
-            'tgl' => $r->tgl, 
-            'idstok' => $r->idstok, 
-            'harga' => $r->harga, 
-            'qty' => $r->qty, 
-            'total' => $r->total, 
-            
-            );
+    $x = array(
+        'nobukti' => $nobukti,
+        'idpemasok' => $r->idpemasok, 
+        'tgl' => $r->tgl, 
+        'idstok' => $r->idstok, 
+        'harga' => $r->harga, 
+        'qty' => $r->qty, 
+        'total' => $r->total, 
+    );
 
-       \DB::table('beli')->insertGetId($x);
+    // Menyimpan data pembelian ke tabel 'beli'
+    \DB::table('beli')->insertGetId($x);
 
-        return view('beli.list');
+    // Menambah stok barang di tabel 'tbstok'
+    $stokBarang = DB::table('tbstok')->where('id', $r->idstok)->first();
+    $stokBaru = $stokBarang->saldoakhir + $r->qty;
+    DB::table('tbstok')->where('id', $r->idstok)->update(['saldoakhir' => $stokBaru]);
+
+    // Menyimpan data mutasi ke tabel 'mutasi'
+    $mutasi = array(
+        'nobukti' => $nobukti,
+        'idstok' => $r->idstok,
+        'qty' => $r->qty,
+        'harga' => $r->harga, 
+        // 'tgl' => $r->tgl,
+        // 'jenis' => 'Pembelian', // Menandai jenis mutasi
+    );
+    DB::table('mutasi')->insert($mutasi);
+
+    return redirect('beli');
+
     }
+    
 
     public function update(Request $r, $id)
     {

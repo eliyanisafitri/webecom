@@ -39,7 +39,7 @@ class StokController extends Controller
         'nama' => $r->nama,
         'idsatuan' => $r->idsatuan,
         'idkategori' => $r->idkategori,
-        'saldoawal' => $r->saldoawal,
+        // 'saldoawal' => $r->saldoawal,
         'saldoakhir' => $r->saldoakhir,
         'hargamodal' => $r->hargamodal,
         'hargajual' => $r->hargajual,

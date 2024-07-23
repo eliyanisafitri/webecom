@@ -16,7 +16,7 @@
 					<th>Nama Barang</th>
 					<th>Satuan</th>
 					<th>Kategori</th>
-					<th>Stok Awal</th>
+					{{-- <th>Stok Awal</th> --}}
 					<th>Stok Akhir</th>
 					<th>Harga Modal</th>
 					<th>Harga Jual</th>
@@ -38,7 +38,7 @@
 						<td>{{ $value->nama }}</td>
 						<td class="text-center">{{ $value->idsatuan }}</td>
 						<td class="text-center">{{ $value->idkategori }}</td>
-						<td class="text-center">{{ $value->saldoawal }}</td>
+						{{-- <td class="text-center">{{ $value->saldoawal }}</td> --}}
 						<td class="text-center">{{ $value->saldoakhir }}</td>
 						<td class="text-center">{{ $value->hargamodal }}</td>
 						<td class="text-center">{{ $value->hargajual }}</td>
